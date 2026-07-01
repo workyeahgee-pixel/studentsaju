@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useRef, useEffect } from 'react';
-import { Sparkles, User, Calendar, Clock, Send, MessageSquare, ChevronRight, Award, Briefcase, Heart, Users, TrendingUp, RefreshCcw, Info, Star, Shield, Zap, Gem, AlertCircle, X, History, Menu, Trash2, Save, FileText, Code, BookOpen } from 'lucide-react';
+import { Sparkles, User, Calendar, Clock, Send, MessageSquare, ChevronRight, Award, Briefcase, Heart, Users, TrendingUp, RefreshCcw, Info, Star, Shield, Zap, Gem, AlertCircle, X, History, Menu, Trash2, Save, FileText, BookOpen } from 'lucide-react';
 import { app, auth, db, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, collection, doc, addDoc, updateDoc, deleteDoc, onSnapshot, serverTimestamp } from '../lib/firebase';
 import { STEM_COLORS, BRANCH_COLORS, JI_JANG_GAN, getSolarTermDate, analyzeHarmonics, calculateSajuPillars, calculateMajorFortunes, calculateZiweiPalace, fetchGemini } from '../lib/saju';
 
@@ -646,10 +646,7 @@ const KingSajuZiwei = () => {
             <button onClick={() => setModalType('terms')} className="hover:text-amber-500 transition">사용약관</button>
             <span className="text-slate-700">|</span>
             <button onClick={() => setModalType('usage')} className="hover:text-amber-500 transition">사용방법</button>
-            <span className="text-slate-700">|</span>
-            <a href="https://github.com/workyeahgee-pixel/studentsaju" target="_blank" rel="noreferrer" className="flex items-center gap-1.5 hover:text-amber-500 transition">
-              <Code className="w-4 h-4" /> GitHub
-            </a>
+
           </div>
           <div className="text-center text-slate-500 text-sm">
             학교명: <strong className="text-slate-300">서울정민학교</strong> &nbsp;|&nbsp; 제작자: <strong className="text-slate-300">신예지</strong> &nbsp;|&nbsp; 연락처: <strong className="text-slate-300">02-978-8406</strong> (교무실)

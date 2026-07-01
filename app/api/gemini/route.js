@@ -17,7 +17,7 @@ export async function POST(req) {
 
     // 3. 구글 Gemini AI 연결
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-    // 사용하는 모델명 (gemini-1.5-pro 또는 gemini-pro)
+    // 사용하는 모델명 (gemini-1.5-flash)
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
     // 4. AI에게 사주 프롬프트 전송 및 답변 받기

@@ -17,8 +17,8 @@ export async function POST(req) {
 
     // 3. 구글 Gemini AI 연결
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-    // 사용하는 모델명 (gemini-1.5-flash)
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    // 사용하는 모델명 (gemini-2.5-flash)
+    const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 
     // 4. AI에게 사주 프롬프트 전송 및 답변 받기
     const result = await model.generateContent(userText);
@@ -30,7 +30,7 @@ export async function POST(req) {
 
   } catch (error) {
     // 💥 500 에러가 나면 화면이 아니라 "터미널(콘솔)"에 진짜 이유를 빨간색으로 출력합니다!
-    console.error("🚨 Gemini API 통신 실패 진짜 원인:", error);
+    console.error("🚨  API 통신 실패 진짜 원인:", error);
     
     return NextResponse.json(
       { error: "API 요청 중 오류가 발생했습니다.", details: error.message },

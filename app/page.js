@@ -646,7 +646,7 @@ const KingSajuZiwei = () => {
             </a>
           </div>
           <div className="text-center text-slate-500 text-sm">
-            학교명: <strong className="text-slate-300">서울정민학교</strong> &nbsp;|&nbsp; 제작자: <strong className="text-slate-300">신예지</strong>
+            학교명: <strong className="text-slate-300">서울정민학교</strong> &nbsp;|&nbsp; 제작자: <strong className="text-slate-300">신예지</strong> &nbsp;|&nbsp; 연락처: <strong className="text-slate-300">02-978-8406</strong> (교무실)
           </div>
         </footer>
       </div>

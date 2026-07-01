@@ -276,7 +276,7 @@ const KingSajuZiwei = () => {
           <button onClick={() => setIsHistoryOpen(true)} className="p-2 bg-slate-800 rounded-lg text-amber-500 flex items-center gap-2 text-sm font-bold">
             <Menu className="w-5 h-5" /> 기록
           </button>
-          <span className="text-white font-bold tracking-tight">AI 사주 학생 진로 상담소</span>
+          <span className="text-white font-bold tracking-tight">타고난 기질로 파악하는 학생 사주상담</span>
         </div>
 
         {view === 'login' && (

@@ -1,30 +1,35 @@
+import { GoogleGenerativeAI } from '@google/generative-ai';
 import { NextResponse } from 'next/server';
 
-export async function POST(request) {
+export async function POST(req) {
   try {
-    const payload = await request.json();
-    const apiKey = process.env.GEMINI_API_KEY;
-
-    if (!apiKey) {
-      return NextResponse.json({ error: "Gemini API Key가 설정되지 않았습니다." }, { status: 500 });
+    // 1. 환경변수(API 키) 체크
+    if (!process.env.GEMINI_API_KEY) {
+      throw new Error("서버에 GEMINI_API_KEY가 설정되지 않았습니다.");
     }
 
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+    // 2. 프론트엔드에서 보낸 페이로드 받기
+    const body = await req.json();
+    const { contents, generationConfig, isJson } = body;
 
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
+    // 3. Gemini AI 초기화 및 호출
+    const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+    const model = genAI.getGenerativeModel({
+      model: "gemini-1.5-flash",
+      ...(isJson && generationConfig ? { generationConfig } : {}),
     });
 
-    if (!response.ok) {
-      throw new Error(`API 응답 실패 (${response.status})`);
-    }
+    const result = await model.generateContent({ contents });
+    const response = await result.response;
+    const text = response.text();
 
-    const data = await response.json();
-    return NextResponse.json(data);
+    return NextResponse.json({ success: true, text });
+
   } catch (error) {
-    console.error("Gemini API Error:", error);
-    return NextResponse.json({ error: "통신 장해가 발생했습니다." }, { status: 500 });
+    console.error("Gemini 통신 중 에러 발생:", error);
+    return NextResponse.json(
+      { success: false, message: error.message },
+      { status: 500 }
+    );
   }
 }

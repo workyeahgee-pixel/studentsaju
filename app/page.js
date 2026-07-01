@@ -133,7 +133,9 @@ const KingSajuZiwei = () => {
       }
     } catch (err) {
       console.error(err);
-      setErrorMessage("하늘의 기운을 해독하는 과정에서 통신 장해가 발생했습니다. 잠시 후 다시 해독을 시작해 주세요.");
+      // 503 과부하 안내 메시지는 그대로 표시, 그 외에는 기본 문구 사용
+      const is503Msg = err?.message?.includes('503') || err?.message?.includes('Service Unavailable') || err?.message?.includes('트래픽 과부하');
+      setErrorMessage(is503Msg ? err.message : "하늘의 기운을 해독하는 과정에서 통신 장해가 발생했습니다. 잠시 후 다시 해독을 시작해 주세요.");
       setView('input');
     }
   };
@@ -177,7 +179,11 @@ const KingSajuZiwei = () => {
         });
       }
     } catch (err) {
-      setChat(prev => [...prev, { role: 'model', text: "기운이 일시적으로 분산되어 답변을 가져오지 못했습니다. 다시 한 번 질문해 주시겠습니까?" }]);
+      const is503Msg = err?.message?.includes('503') || err?.message?.includes('Service Unavailable') || err?.message?.includes('트래픽 과부하');
+      const chatErrText = is503Msg
+        ? err.message
+        : "기운이 일시적으로 분산되어 답변을 가져오지 못했습니다. 다시 한 번 질문해 주시겠습니까?";
+      setChat(prev => [...prev, { role: 'model', text: chatErrText }]);
     } finally {
       setIsChatting(false);
     }

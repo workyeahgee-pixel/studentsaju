@@ -12,7 +12,7 @@ export async function POST(req) {
     // 2. 프론트엔드에서 보낸 데이터(contents, parts) 읽기
     const body = await req.json();
     
-    // 프론트엔드에서 보낸 구조에서 정확하게 텍스트(b)만 뽑아냅니다.
+    // 프론트엔드에서 보낸 구조에서 정확하게 텍스트만 뽑아냅니다.
     const userText = body.contents[0].parts[0].text;
 
     // 3. 구글 Gemini AI 연결
@@ -25,13 +25,27 @@ export async function POST(req) {
     const responseText = result.response.text();
 
     // 5. 성공적으로 답변을 프론트엔드로 돌려보냄
-    // (프론트엔드 코드에 맞게 응답 형태는 변경될 수 있습니다)
     return NextResponse.json({ text: responseText });
 
   } catch (error) {
-    // 💥 500 에러가 나면 화면이 아니라 "터미널(콘솔)"에 진짜 이유를 빨간색으로 출력합니다!
+    // 💥 에러 발생 시 터미널(콘솔)에 진짜 원인을 출력합니다!
     console.error("🚨  API 통신 실패 진짜 원인:", error);
-    
+
+    // 503 서버 과부하 에러 전용 안내 메시지
+    const is503 = error?.status === 503 || error?.message?.includes('503') || error?.message?.includes('Service Unavailable');
+    if (is503) {
+      return NextResponse.json(
+        {
+          success: false,
+          message:
+            "현재 Google Gemini API 서버 자체의 트래픽 과부하 문제로 인해 간헐적으로 503 오류(서버 지연)가 발생할 수 있습니다. " +
+            "혹시 테스트 중 응답이 오지 않거나 서버 오류가 뜬다면, 1~2분 정도 후에 다시 시도해 주시면 정상 작동합니다.",
+          errorCode: 503,
+        },
+        { status: 503 }
+      );
+    }
+
     return NextResponse.json(
       { error: "API 요청 중 오류가 발생했습니다.", details: error.message },
       { status: 500 }

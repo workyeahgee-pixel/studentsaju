@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useRef, useEffect } from 'react';
-import { Sparkles, User, Calendar, Clock, Send, MessageSquare, ChevronRight, Award, Briefcase, Heart, Users, TrendingUp, RefreshCcw, Info, Star, Shield, Zap, Gem, AlertCircle, X, History, Menu, Trash2, Save, FileText, Github, BookOpen } from 'lucide-react';
+import { Sparkles, User, Calendar, Clock, Send, MessageSquare, ChevronRight, Award, Briefcase, Heart, Users, TrendingUp, RefreshCcw, Info, Star, Shield, Zap, Gem, AlertCircle, X, History, Menu, Trash2, Save, FileText, Code, BookOpen } from 'lucide-react';
 import { app, auth, db, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, collection, doc, addDoc, updateDoc, deleteDoc, onSnapshot, serverTimestamp } from '../lib/firebase';
 import { STEM_COLORS, BRANCH_COLORS, JI_JANG_GAN, getSolarTermDate, analyzeHarmonics, calculateSajuPillars, calculateMajorFortunes, calculateZiweiPalace, fetchGemini } from '../lib/saju';
 
@@ -642,7 +642,7 @@ const KingSajuZiwei = () => {
             <button onClick={() => setModalType('usage')} className="hover:text-amber-500 transition">사용방법</button>
             <span className="text-slate-700">|</span>
             <a href="https://github.com/workyeahgee-pixel/studentsaju" target="_blank" rel="noreferrer" className="flex items-center gap-1.5 hover:text-amber-500 transition">
-              <Github className="w-4 h-4" /> GitHub
+              <Code className="w-4 h-4" /> GitHub
             </a>
           </div>
           <div className="text-center text-slate-500 text-sm">

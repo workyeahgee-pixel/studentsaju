@@ -17,7 +17,7 @@ export async function POST(req) {
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
     // generationConfig가 있으면 모델 옵션에 포함
-    const modelOptions = { model: "gemini-1.5-flash" };
+    const modelOptions = { model: "gemini-2.5-flash" };
     if (generationConfig) {
       modelOptions.generationConfig = generationConfig;
     }
